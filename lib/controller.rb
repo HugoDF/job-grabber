@@ -46,7 +46,7 @@ module JobGrabber
       @jobs.select{|job| DateTime.parse(job.created_at) > date}.sort{|a,b|a.created_at<=>a.created_at}.map{|job| job.format(@format)}[0...@number]
     end
     def get_jobs_formatted
-      @jobs.sort{|a,b|a.created_at<=>a.created_at}.map{|job| job.format(@format)}[0...@number]
+      @jobs.sort{|a,b|b.created_at<=>a.created_at}.map{|job| job.format(@format)}[0...@number]
     end
     def get_job id
       @jobs.detect{|job| job.id == id}.format(@format)
