@@ -12,7 +12,9 @@ module JobGrabber
       @sources.each do |src|
         threads << Thread.new(src, jobs) do |src, jobs|
           src_jobs = JobGrabber::SrcGrabber.new(src).grab
-          mutex.synchronize{jobs += src_jobs}
+          mutex.synchronize do 
+            jobs << src_jobs
+          end
         end
       end
       threads.each(&:join)
